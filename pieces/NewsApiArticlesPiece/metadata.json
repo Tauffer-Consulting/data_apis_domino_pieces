@@ -1,0 +1,21 @@
+{
+    "name": "NewsApiArticlesPiece",
+    "description": "This Piece uses the News API to retrieve full articles.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/everything",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "NewsAPI Articles Piece",
+        "icon_class_name": "fluent:news-16-regular"
+    }
+}
