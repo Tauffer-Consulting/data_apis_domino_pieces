@@ -44,7 +44,6 @@ class NewsApiHeadlinesPiece(BasePiece):
         # Display result in the Domino GUI
         self.format_display_result(input_data, articles=articles)
 
-        # Finally, results should return as an Output model
         return OutputModel(
             message=message,
             articles=articles
