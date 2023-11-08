@@ -1,0 +1,21 @@
+{
+    "name": "NewsApiHeadlinesPiece",
+    "description": "This Piece uses the News API to retrieve the top headlines from a given source or country.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/top-headlines",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "NewsAPI Headlines Piece",
+        "icon_class_name": "fluent:news-16-regular"
+    }
+}

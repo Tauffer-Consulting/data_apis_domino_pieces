@@ -1,2 +1,3 @@
-# [Pieces repository name]
-[Description of this Pieces repository]
+# News Domino Pieces
+
+Domino Pieces for News APIs
