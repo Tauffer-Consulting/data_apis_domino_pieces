@@ -132,3 +132,6 @@ dmypy.json
 # jupyter
 .ipynb_checkpoints
 *.ipynb
+
+# Dry run
+**dry_run_results**

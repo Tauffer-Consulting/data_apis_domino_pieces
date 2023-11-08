@@ -7,7 +7,7 @@ def test_newsapi_articles():
     to_date = date.today().isoformat()
     from_date = (date.today() - timedelta(days=10)).isoformat()
     input_data = dict(
-        query="",
+        query="economy",
         from_date=from_date,
         to_date=to_date,
         sort_by="relevancy",

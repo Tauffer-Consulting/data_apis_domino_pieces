@@ -59,8 +59,6 @@ class NewsApiArticlesPiece(BasePiece):
             q=query,
             from_param=from_date,
             to=to_date,
-            from_param=from_date,
-            to=to_date,
             language=language,
             sort_by=sort_by,
             page_size=number_of_results
@@ -88,7 +86,7 @@ class NewsApiArticlesPiece(BasePiece):
         md_text = "## Query:\n"
         md_text += f"{input_data.query}\n"
         for article in articles:
-            md_text += f"""\n### {article['title']}:\n{article['author']}\n{article['publishedAt']}\n{article['content']}"""
+            md_text += f"""\n### {article['title']}:\n{article['author']}\n\n{article['publishedAt']}\n\n{article['content']}"""
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:
             f.write(md_text)
