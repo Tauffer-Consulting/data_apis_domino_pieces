@@ -63,7 +63,6 @@
             },
             "properties": {
                 "query": {
-                    "default": "",
                     "description": "Query to search for.",
                     "title": "Query",
                     "type": "string"
@@ -109,6 +108,9 @@
                     "type": "integer"
                 }
             },
+            "required": [
+                "query"
+            ],
             "title": "InputModel",
             "type": "object"
         },
@@ -338,7 +340,6 @@
             },
             "properties": {
                 "query": {
-                    "default": "",
                     "description": "Query to search for.",
                     "title": "Query",
                     "type": "string"
@@ -379,6 +380,9 @@
                     "type": "integer"
                 }
             },
+            "required": [
+                "query"
+            ],
             "title": "InputModel",
             "type": "object"
         },
