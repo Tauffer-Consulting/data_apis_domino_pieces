@@ -36,18 +36,18 @@ class NewsApiHeadlinesPiece(BasePiece):
         articles = list()
         for article in top_headlines["articles"]:
             a = dict()
-            a["source"] = str(article["source"]["name"])
-            a["title"] = str(article["title"])
+            a["source"] = str(article.get("source", {}).get("name"))
+            a["title"] = str(article.get("title", ""))
             author = article.get("author", None)
-            if isinstance(article["author"], list):
-                a["author"] = ", ".join(article["author"])
+            if isinstance(author, list):
+                a["author"] = ", ".join(author)
             elif author is None:
                 a["author"] = ""
             else:
                 a["author"] = str(author)
-            a["description"] = str(article["description"])
-            a["publishedAt"] = str(article["publishedAt"])
-            a["url"] = str(article["url"])
+            a["description"] = str(article.get("description", ""))
+            a["publishedAt"] = str(article.get("publishedAt", ""))
+            a["url"] = str(article.get("url", ""))
             a["url_to_image"] = str(article.get("urlToImage", ""))
             articles.append(a)
 
