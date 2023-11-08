@@ -89,10 +89,7 @@ class LanguageType(str, Enum):
 
 
 class InputModel(BaseModel):
-    query: str = Field(
-        default="",
-        description="Query to search for."
-    )
+    query: str = Field(description="Query to search for.")
     category: CategoryType = Field(
         default=CategoryType.general,
         description="Category to filter by. Options are: `business`, `entertainment`, `general`, `health`, `science`, `sports`, `technology`."
@@ -124,15 +121,9 @@ class ArticleModel(BaseModel):
 
 
 class OutputModel(BaseModel):
-    message: str = Field(
-        description="Output message to log."
-    )
-    articles: List[ArticleModel] = Field(
-        description="List of articles."
-    )
+    message: str = Field(description="Output message to log.")
+    articles: List[ArticleModel] = Field(description="List of articles.")
 
 
 class SecretsModel(BaseModel):
-    NEWSAPI_API_KEY: str = Field(
-        description="News API API Key."
-    )
+    NEWSAPI_API_KEY: str = Field(description="News API API Key.")

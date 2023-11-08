@@ -28,10 +28,7 @@ class SortByType(str, Enum):
 
 
 class InputModel(BaseModel):
-    query: str = Field(
-        default="",
-        description="Query to search for."
-    )
+    query: str = Field(description="Query to search for.")
     from_date: date = Field(
         default="2023-11-01",
         description="From date."
@@ -68,15 +65,9 @@ class ArticleModel(BaseModel):
 
 
 class OutputModel(BaseModel):
-    message: str = Field(
-        description="Output message to log"
-    )
-    articles: List[ArticleModel] = Field(
-        description="List of articles"
-    )
+    message: str = Field(description="Output message to log")
+    articles: List[ArticleModel] = Field(description="List of articles")
 
 
 class SecretsModel(BaseModel):
-    NEWSAPI_API_KEY: str = Field(
-        description="News API API Key"
-    )
+    NEWSAPI_API_KEY: str = Field(description="News API API Key")
