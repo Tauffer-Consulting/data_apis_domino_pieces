@@ -64,20 +64,20 @@
             "properties": {
                 "query": {
                     "default": "",
-                    "description": "Query to search for",
+                    "description": "Query to search for.",
                     "title": "Query",
                     "type": "string"
                 },
                 "from_date": {
                     "default": "2023-11-01",
-                    "description": "From date",
+                    "description": "From date.",
                     "format": "date",
                     "title": "From Date",
                     "type": "string"
                 },
                 "to_date": {
                     "default": "2023-11-06",
-                    "description": "To date",
+                    "description": "To date.",
                     "format": "date",
                     "title": "To Date",
                     "type": "string"
@@ -89,7 +89,7 @@
                         }
                     ],
                     "default": "relevancy",
-                    "description": "Sort by"
+                    "description": "Sort by. Options are: `relevancy`, `popularity`, `publishedAt`."
                 },
                 "language": {
                     "allOf": [
@@ -98,11 +98,11 @@
                         }
                     ],
                     "default": "en",
-                    "description": "Language to filter by"
+                    "description": "Language to filter by. Options are: `ar`, `de`, `en`, `es`, `fr`, `he`, `it`, `nl`, `no`, `pt`, `ru`, `sv`, `ud`, `zh`."
                 },
                 "number_of_results": {
                     "default": 20,
-                    "description": "Number of results to return",
+                    "description": "Number of results to return.",
                     "maximum": 100,
                     "minimum": 1,
                     "title": "Number Of Results",
@@ -113,6 +113,64 @@
             "type": "object"
         },
         "output_schema": {
+            "$defs": {
+                "ArticleModel": {
+                    "properties": {
+                        "source": {
+                            "description": "Source of article.",
+                            "title": "Source",
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Title of article.",
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "author": {
+                            "description": "Author of article.",
+                            "title": "Author",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of article.",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "publishedAt": {
+                            "description": "Date article was published, in ISO format.",
+                            "title": "Publishedat",
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "URL of article.",
+                            "title": "Url",
+                            "type": "string"
+                        },
+                        "url_to_image": {
+                            "default": "",
+                            "description": "Image associated with article.",
+                            "title": "Url To Image",
+                            "type": "string"
+                        },
+                        "content": {
+                            "description": "Content of article.",
+                            "title": "Content",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "source",
+                        "title",
+                        "author",
+                        "description",
+                        "publishedAt",
+                        "url",
+                        "content"
+                    ],
+                    "title": "ArticleModel",
+                    "type": "object"
+                }
+            },
             "properties": {
                 "message": {
                     "description": "Output message to log",
@@ -121,7 +179,9 @@
                 },
                 "articles": {
                     "description": "List of articles",
-                    "items": {},
+                    "items": {
+                        "$ref": "#/$defs/ArticleModel"
+                    },
                     "title": "Articles",
                     "type": "array"
                 }
@@ -279,7 +339,7 @@
             "properties": {
                 "query": {
                     "default": "",
-                    "description": "Query to search for",
+                    "description": "Query to search for.",
                     "title": "Query",
                     "type": "string"
                 },
@@ -290,7 +350,7 @@
                         }
                     ],
                     "default": "general",
-                    "description": "Category to filter by"
+                    "description": "Category to filter by. Options are: `business`, `entertainment`, `general`, `health`, `science`, `sports`, `technology`."
                 },
                 "country": {
                     "allOf": [
@@ -299,7 +359,7 @@
                         }
                     ],
                     "default": "all",
-                    "description": "Country to filter by"
+                    "description": "Country to filter by. Options are: `all`, `ae`, `ar`, `at`, `au`, `be`, `bg`, `br`, `ca`, `ch`, `cn`, `co`, `cu`, `cz`, `de`, `eg`, `fr`, `gb`, `gr`, `hk`, `hu`, `id`, `ie`, `il`, `in`, `it`, `jp`, `kr`, `lt`, `lv`, `ma`, `mx`, `my`, `ng`, `nl`, `no`, `nz`, `ph`, `pl`, `pt`, `ro`, `rs`, `ru`, `sa`, `se`, `sg`, `si`, `sk`, `th`, `tr`, `tw`, `ua`, `us`, `ve`, `za`."
                 },
                 "language": {
                     "allOf": [
@@ -308,7 +368,7 @@
                         }
                     ],
                     "default": "en",
-                    "description": "Language to filter by"
+                    "description": "Language to filter by. Options are: `ar`, `de`, `en`, `es`, `fr`, `he`, `it`, `nl`, `no`, `pt`, `ru`, `sv`, `ud`, `zh`."
                 },
                 "number_of_results": {
                     "default": 20,
@@ -323,15 +383,69 @@
             "type": "object"
         },
         "output_schema": {
+            "$defs": {
+                "ArticleModel": {
+                    "properties": {
+                        "source": {
+                            "description": "Source of article.",
+                            "title": "Source",
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Title of article.",
+                            "title": "Title",
+                            "type": "string"
+                        },
+                        "author": {
+                            "description": "Author of article.",
+                            "title": "Author",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of article.",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "publishedAt": {
+                            "description": "Date article was published, in ISO format.",
+                            "title": "Publishedat",
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "URL of article.",
+                            "title": "Url",
+                            "type": "string"
+                        },
+                        "url_to_image": {
+                            "default": "",
+                            "description": "Image associated with article.",
+                            "title": "Url To Image",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "source",
+                        "title",
+                        "author",
+                        "description",
+                        "publishedAt",
+                        "url"
+                    ],
+                    "title": "ArticleModel",
+                    "type": "object"
+                }
+            },
             "properties": {
                 "message": {
-                    "description": "Output message to log",
+                    "description": "Output message to log.",
                     "title": "Message",
                     "type": "string"
                 },
                 "articles": {
-                    "description": "List of articles",
-                    "items": {},
+                    "description": "List of articles.",
+                    "items": {
+                        "$ref": "#/$defs/ArticleModel"
+                    },
                     "title": "Articles",
                     "type": "array"
                 }
@@ -346,7 +460,7 @@
         "secrets_schema": {
             "properties": {
                 "NEWSAPI_API_KEY": {
-                    "description": "News API API Key",
+                    "description": "News API API Key.",
                     "title": "Newsapi Api Key",
                     "type": "string"
                 }
