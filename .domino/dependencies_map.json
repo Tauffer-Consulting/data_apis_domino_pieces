@@ -2,14 +2,15 @@
     "group0": {
         "dependency": {
             "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
+            "requirements_file": "requirements.txt"
         },
         "pieces": [
-            "ExampleSimplePiece"
+            "NewsApiArticlesPiece",
+            "NewsApiHeadlinesPiece"
         ],
         "secrets": [
-            "EXAMPLE_OPERATOR_SECRET_1"
+            "NEWSAPI_API_KEY"
         ],
-        "source_image": "ghcr.io/enter-your-registry-name-here/enter-your-repository-name-here:0.1.0-group0"
+        "source_image": "ghcr.io/tauffer-consulting/news_domino_pieces:0.1.0-group0"
     }
 }

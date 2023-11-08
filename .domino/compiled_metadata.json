@@ -1,26 +1,24 @@
 {
-    "ExampleSimplePiece": {
-        "name": "ExampleSimplePiece",
+    "NewsApiArticlesPiece": {
+        "name": "NewsApiArticlesPiece",
         "dependency": {
             "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
+            "requirements_file": "requirements.txt"
         },
-        "tags": [
-            "Example"
-        ],
+        "tags": [],
         "style": {
-            "node_label": "Simple Piece",
+            "node_label": "NewsAPI Articles Piece",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fas fa-database",
+            "icon_class_name": "fluent:news-16-regular",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This is an example of a simple Domino Piece",
+        "description": "This Piece uses the News API to retrieve full articles.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/everything",
         "container_resources": {
             "requests": {
                 "cpu": "100m",
@@ -32,79 +30,333 @@
             }
         },
         "input_schema": {
-            "title": "InputModel",
-            "type": "object",
-            "properties": {
-                "distribution_name": {
-                    "description": "Name of the distribution to sample from",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DistributionType"
-                        }
-                    ]
+            "$defs": {
+                "LanguageType": {
+                    "enum": [
+                        "ar",
+                        "de",
+                        "en",
+                        "es",
+                        "fr",
+                        "he",
+                        "it",
+                        "nl",
+                        "no",
+                        "pt",
+                        "ru",
+                        "sv",
+                        "ud",
+                        "zh"
+                    ],
+                    "title": "LanguageType",
+                    "type": "string"
                 },
-                "distribution_mean": {
-                    "title": "Distribution Mean",
-                    "description": "Distribution mean",
-                    "type": "number"
-                },
-                "distribution_sd": {
-                    "title": "Distribution Sd",
-                    "description": "Distribution standard deviation",
-                    "default": 1.0,
-                    "exclusiveMinimum": 0.0,
-                    "type": "number"
+                "SortByType": {
+                    "enum": [
+                        "relevancy",
+                        "popularity",
+                        "publishedAt"
+                    ],
+                    "title": "SortByType",
+                    "type": "string"
                 }
             },
-            "required": [
-                "distribution_name",
-                "distribution_mean"
-            ],
-            "definitions": {
-                "DistributionType": {
-                    "title": "DistributionType",
-                    "description": "An enumeration.",
-                    "enum": [
-                        "gaussian",
-                        "poisson"
-                    ],
-                    "type": "string"
-                }
-            }
-        },
-        "output_schema": {
-            "title": "OutputModel",
-            "type": "object",
             "properties": {
-                "message": {
-                    "title": "Message",
-                    "description": "Output message to log",
+                "query": {
+                    "default": "",
+                    "description": "Query to search for",
+                    "title": "Query",
                     "type": "string"
                 },
-                "sample_result": {
-                    "title": "Sample Result",
-                    "description": "The result of this Piece's processing",
+                "from_date": {
+                    "default": "2023-11-01",
+                    "description": "From date",
+                    "format": "date",
+                    "title": "From Date",
                     "type": "string"
+                },
+                "to_date": {
+                    "default": "2023-11-06",
+                    "description": "To date",
+                    "format": "date",
+                    "title": "To Date",
+                    "type": "string"
+                },
+                "sort_by": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/SortByType"
+                        }
+                    ],
+                    "default": "relevancy",
+                    "description": "Sort by"
+                },
+                "language": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/LanguageType"
+                        }
+                    ],
+                    "default": "en",
+                    "description": "Language to filter by"
+                },
+                "number_of_results": {
+                    "default": 20,
+                    "description": "Number of results to return",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "title": "Number Of Results",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "message": {
+                    "description": "Output message to log",
+                    "title": "Message",
+                    "type": "string"
+                },
+                "articles": {
+                    "description": "List of articles",
+                    "items": {},
+                    "title": "Articles",
+                    "type": "array"
                 }
             },
             "required": [
                 "message",
-                "sample_result"
-            ]
+                "articles"
+            ],
+            "title": "OutputModel",
+            "type": "object"
         },
         "secrets_schema": {
-            "title": "SecretsModel",
-            "type": "object",
             "properties": {
-                "EXAMPLE_OPERATOR_SECRET_1": {
-                    "title": "Example Operator Secret 1",
-                    "description": "A secret necessary to run this Piece",
+                "NEWSAPI_API_KEY": {
+                    "description": "News API API Key",
+                    "title": "Newsapi Api Key",
                     "type": "string"
                 }
             },
             "required": [
-                "EXAMPLE_OPERATOR_SECRET_1"
-            ]
-        }
+                "NEWSAPI_API_KEY"
+            ],
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NewsApiArticlesPiece"
+    },
+    "NewsApiHeadlinesPiece": {
+        "name": "NewsApiHeadlinesPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "NewsAPI Headlines Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fluent:news-16-regular",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece uses the News API to retrieve the top headlines from a given source or country.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/top-headlines",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "$defs": {
+                "CategoryType": {
+                    "enum": [
+                        "business",
+                        "entertainment",
+                        "general",
+                        "health",
+                        "science",
+                        "sports",
+                        "technology"
+                    ],
+                    "title": "CategoryType",
+                    "type": "string"
+                },
+                "CountryType": {
+                    "enum": [
+                        "all",
+                        "ae",
+                        "ar",
+                        "at",
+                        "au",
+                        "be",
+                        "bg",
+                        "br",
+                        "ca",
+                        "ch",
+                        "cn",
+                        "co",
+                        "cu",
+                        "cz",
+                        "de",
+                        "eg",
+                        "fr",
+                        "gb",
+                        "gr",
+                        "hk",
+                        "hu",
+                        "id",
+                        "ie",
+                        "il",
+                        "in",
+                        "it",
+                        "jp",
+                        "kr",
+                        "lt",
+                        "lv",
+                        "ma",
+                        "mx",
+                        "my",
+                        "ng",
+                        "nl",
+                        "no",
+                        "nz",
+                        "ph",
+                        "pl",
+                        "pt",
+                        "ro",
+                        "rs",
+                        "ru",
+                        "sa",
+                        "se",
+                        "sg",
+                        "si",
+                        "sk",
+                        "th",
+                        "tr",
+                        "tw",
+                        "ua",
+                        "us",
+                        "ve",
+                        "za"
+                    ],
+                    "title": "CountryType",
+                    "type": "string"
+                },
+                "LanguageType": {
+                    "enum": [
+                        "ar",
+                        "de",
+                        "en",
+                        "es",
+                        "fr",
+                        "he",
+                        "it",
+                        "nl",
+                        "no",
+                        "pt",
+                        "ru",
+                        "sv",
+                        "ud",
+                        "zh"
+                    ],
+                    "title": "LanguageType",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "query": {
+                    "default": "",
+                    "description": "Query to search for",
+                    "title": "Query",
+                    "type": "string"
+                },
+                "category": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/CategoryType"
+                        }
+                    ],
+                    "default": "general",
+                    "description": "Category to filter by"
+                },
+                "country": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/CountryType"
+                        }
+                    ],
+                    "default": "all",
+                    "description": "Country to filter by"
+                },
+                "language": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/LanguageType"
+                        }
+                    ],
+                    "default": "en",
+                    "description": "Language to filter by"
+                },
+                "number_of_results": {
+                    "default": 20,
+                    "description": "Number of results to return",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "title": "Number Of Results",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "message": {
+                    "description": "Output message to log",
+                    "title": "Message",
+                    "type": "string"
+                },
+                "articles": {
+                    "description": "List of articles",
+                    "items": {},
+                    "title": "Articles",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "message",
+                "articles"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": {
+            "properties": {
+                "NEWSAPI_API_KEY": {
+                    "description": "News API API Key",
+                    "title": "Newsapi Api Key",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "NEWSAPI_API_KEY"
+            ],
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NewsApiHeadlinesPiece"
     }
 }
