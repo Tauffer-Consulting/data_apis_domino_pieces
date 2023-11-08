@@ -45,6 +45,8 @@ jobs:
         run: pip install pytest
 
       - name: Run tests over built images
+        env:
+          NEWSAPI_API_KEY: ${{ secrets.NEWSAPI_API_KEY }}
         run: |
           pytest
       
