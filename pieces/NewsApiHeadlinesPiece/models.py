@@ -91,19 +91,19 @@ class LanguageType(str, Enum):
 class InputModel(BaseModel):
     query: str = Field(
         default="",
-        description="Query to search for"
+        description="Query to search for."
     )
     category: CategoryType = Field(
         default=CategoryType.general,
-        description="Category to filter by"
+        description="Category to filter by. Options are: `business`, `entertainment`, `general`, `health`, `science`, `sports`, `technology`."
     )
     country: CountryType = Field(
         default=CountryType.all,
-        description="Country to filter by"
+        description="Country to filter by. Options are: `all`, `ae`, `ar`, `at`, `au`, `be`, `bg`, `br`, `ca`, `ch`, `cn`, `co`, `cu`, `cz`, `de`, `eg`, `fr`, `gb`, `gr`, `hk`, `hu`, `id`, `ie`, `il`, `in`, `it`, `jp`, `kr`, `lt`, `lv`, `ma`, `mx`, `my`, `ng`, `nl`, `no`, `nz`, `ph`, `pl`, `pt`, `ro`, `rs`, `ru`, `sa`, `se`, `sg`, `si`, `sk`, `th`, `tr`, `tw`, `ua`, `us`, `ve`, `za`."
     )
     language: LanguageType = Field(
         default=LanguageType.en,
-        description="Language to filter by"
+        description="Language to filter by. Options are: `ar`, `de`, `en`, `es`, `fr`, `he`, `it`, `nl`, `no`, `pt`, `ru`, `sv`, `ud`, `zh`."
     )
     number_of_results: int = Field(
         default=20,
@@ -113,16 +113,26 @@ class InputModel(BaseModel):
     )
 
 
+class ArticleModel(BaseModel):
+    source: str = Field(description="Source of article.")
+    title: str = Field(description="Title of article.")
+    author: str = Field(description="Author of article.")
+    description: str = Field(description="Description of article.")
+    publishedAt: str = Field(description="Date article was published, in ISO format.")
+    url: str = Field(description="URL of article.")
+    url_to_image: str = Field(default="", description="Image associated with article.")
+
+
 class OutputModel(BaseModel):
     message: str = Field(
-        description="Output message to log"
+        description="Output message to log."
     )
-    articles: List = Field(
-        description="List of articles"
+    articles: List[ArticleModel] = Field(
+        description="List of articles."
     )
 
 
 class SecretsModel(BaseModel):
     NEWSAPI_API_KEY: str = Field(
-        description="News API API Key"
+        description="News API API Key."
     )

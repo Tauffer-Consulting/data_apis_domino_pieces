@@ -65,9 +65,24 @@ class NewsApiArticlesPiece(BasePiece):
         )
 
         # Extract article content from URLs
-        articles: list = all_articles["articles"]
-        for article in articles:
-            article["content"] = extract_article_content(article["url"])
+        articles = list()
+        for article in all_articles["articles"]:
+            a = dict()
+            a["source"] = str(article["source"]["name"])
+            a["title"] = str(article["title"])
+            author = article.get("author", None)
+            if isinstance(article["author"], list):
+                a["author"] = ", ".join(article["author"])
+            elif author is None:
+                a["author"] = ""
+            else:
+                a["author"] = str(author)
+            a["description"] = str(article["description"])
+            a["publishedAt"] = str(article["publishedAt"])
+            a["url"] = str(article["url"])
+            a["url_to_image"] = str(article.get("urlToImage", ""))
+            a["content"] = extract_article_content(article["url"])
+            articles.append(a)
 
         self.logger.info(f"Query: {query}")
         self.logger.info(f"Number of results: {len(articles)}")
@@ -86,7 +101,12 @@ class NewsApiArticlesPiece(BasePiece):
         md_text = "## Query:\n"
         md_text += f"{input_data.query}\n"
         for article in articles:
-            md_text += f"""\n### {article['title']}:\n{article['author']}\n\n{article['publishedAt']}\n\n{article['content']}"""
+            md_text += f"\n### {article['title']}:\n"
+            if article.get("url_to_image", None):
+                md_text += f"![{article['title']}]({article['url_to_image']})\n\n"
+            md_text += f"{article['author']}\n\n"
+            md_text += f"{article['publishedAt']}\n\n"
+            md_text += f"{article['content']}\n"
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:
             f.write(md_text)

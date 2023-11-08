@@ -32,14 +32,29 @@ class NewsApiHeadlinesPiece(BasePiece):
             country=country,
             page_size=number_of_results
         )
-        articles: list = top_headlines["articles"]
+
+        articles = list()
+        for article in top_headlines["articles"]:
+            a = dict()
+            a["source"] = str(article["source"]["name"])
+            a["title"] = str(article["title"])
+            author = article.get("author", None)
+            if isinstance(article["author"], list):
+                a["author"] = ", ".join(article["author"])
+            elif author is None:
+                a["author"] = ""
+            else:
+                a["author"] = str(author)
+            a["description"] = str(article["description"])
+            a["publishedAt"] = str(article["publishedAt"])
+            a["url"] = str(article["url"])
+            a["url_to_image"] = str(article.get("urlToImage", ""))
+            articles.append(a)
 
         self.logger.info(f"Query: {query}")
         self.logger.info(f"Number of results: {len(articles)}")
         message = f"Query: {query}\n"
         message += f"Number of results: {len(articles)}"
-        for article in articles:
-            message += f"\n{article['title']}"
 
         # Display result in the Domino GUI
         self.format_display_result(input_data, articles=articles)
@@ -53,7 +68,11 @@ class NewsApiHeadlinesPiece(BasePiece):
         md_text = "## Query:\n"
         md_text += f"{input_data.query}\n"
         for article in articles:
-            md_text += f"""\n### {article['title']}:\n{article['description']}\n"""
+            md_text += f"\n### {article['title']}:\n"
+            if article.get("url_to_image", None):
+                md_text += f"![{article['title']}]({article['url_to_image']})\n\n"
+            md_text += f"{article['author']}\n\n"
+            md_text += f"{article['publishedAt']}\n\n"
         file_path = f"{self.results_path}/display_result.md"
         with open(file_path, "w") as f:
             f.write(md_text)

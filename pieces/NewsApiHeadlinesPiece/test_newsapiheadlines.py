@@ -4,7 +4,7 @@ import os
 
 def test_newsapi_headlines():
     input_data = dict(
-        query="dollar",
+        query="usd",
         category="business",
         country="all",
         language="en",
