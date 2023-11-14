@@ -7,7 +7,7 @@
         },
         "tags": [],
         "style": {
-            "node_label": "NewsAPI Articles Piece",
+            "node_label": "NewsAPI Articles",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
@@ -219,7 +219,7 @@
         },
         "tags": [],
         "style": {
-            "node_label": "NewsAPI Headlines Piece",
+            "node_label": "NewsAPI Headlines",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
@@ -476,5 +476,102 @@
             "type": "object"
         },
         "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NewsApiHeadlinesPiece"
+    },
+    "NasaEarthImagePiece": {
+        "name": "NasaEarthImagePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "NASA Earth Image",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "ion:earth-sharp",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece uses the NASA EPIC API to get satellite images of the Earth.\nReferences: \n- https://epic.gsfc.nasa.gov/about/api \n- https://api.nasa.gov/",
+        "container_resources": {
+            "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+            },
+            "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+            }
+        },
+        "input_schema": {
+            "$defs": {
+                "LocationTypes": {
+                    "enum": [
+                        "random",
+                        "America",
+                        "Atlantic Ocean",
+                        "Africa",
+                        "Asia",
+                        "Pacific Ocean"
+                    ],
+                    "title": "LocationTypes",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "location": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/LocationTypes"
+                        }
+                    ],
+                    "default": "random",
+                    "description": "Retrieve image centered approximately on this location."
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "image_url": {
+                    "default": null,
+                    "description": "URL of the image.",
+                    "title": "Image Url",
+                    "type": "string"
+                },
+                "image_base64_string": {
+                    "default": null,
+                    "description": "Output data as base64 encoded string.",
+                    "title": "Image Base64 String",
+                    "type": "string"
+                },
+                "image_file_path": {
+                    "default": null,
+                    "description": "Path to the image file.",
+                    "title": "Image File Path",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": {
+            "properties": {
+                "NASA_API_KEY": {
+                    "default": "DEMO_KEY",
+                    "description": "API key for NASA Earth Image API.",
+                    "title": "Nasa Api Key",
+                    "type": "string"
+                }
+            },
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
     }
 }
