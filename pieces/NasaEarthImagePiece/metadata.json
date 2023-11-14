@@ -1,6 +1,6 @@
 {
-    "name": "NewsApiArticlesPiece",
-    "description": "This Piece uses the News API to retrieve full articles.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/everything",
+    "name": "NasaEarthImagePiece",
+    "description": "This Piece uses the NASA EPIC API to get satellite images of the Earth.\nReferences: \n- https://epic.gsfc.nasa.gov/about/api \n- https://api.nasa.gov/",
     "dependency": {
         "requirements_file": "requirements.txt"
     },
@@ -15,7 +15,7 @@
         }
     },
     "style": {
-        "node_label": "NewsAPI Articles",
-        "icon_class_name": "fluent:news-16-regular"
+        "node_label": "NASA Earth Image",
+        "icon_class_name": "ion:earth-sharp"
     }
 }

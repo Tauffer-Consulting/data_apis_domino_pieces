@@ -15,7 +15,7 @@
         }
     },
     "style": {
-        "node_label": "NewsAPI Headlines Piece",
+        "node_label": "NewsAPI Headlines",
         "icon_class_name": "fluent:news-16-regular"
     }
 }
