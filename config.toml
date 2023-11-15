@@ -4,4 +4,4 @@ REGISTRY_NAME = "tauffer-consulting"
 REPOSITORY_NAME = "data_apis_domino_pieces"
 REPOSITORY_LABEL = "Data APIs Domino Pieces"
 
-VERSION = "0.2.0"
+VERSION = "0.2.0" 
