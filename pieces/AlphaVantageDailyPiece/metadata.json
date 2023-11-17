@@ -1,0 +1,21 @@
+{
+    "name": "AlphaVantageDailyPiece",
+    "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "AlphaVantage Daily",
+        "icon_class_name": "ant-design:stock-outlined"
+    }
+}

@@ -209,7 +209,7 @@
             "title": "SecretsModel",
             "type": "object"
         },
-        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NewsApiArticlesPiece"
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NewsApiArticlesPiece"
     },
     "NewsApiHeadlinesPiece": {
         "name": "NewsApiHeadlinesPiece",
@@ -475,7 +475,7 @@
             "title": "SecretsModel",
             "type": "object"
         },
-        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NewsApiHeadlinesPiece"
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NewsApiHeadlinesPiece"
     },
     "NasaEarthImagePiece": {
         "name": "NasaEarthImagePiece",
@@ -572,6 +572,6 @@
             "title": "SecretsModel",
             "type": "object"
         },
-        "source_url": "https://github.com/Tauffer-Consulting/news_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
     }
 }
