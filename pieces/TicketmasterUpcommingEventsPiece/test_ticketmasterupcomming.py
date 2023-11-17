@@ -3,6 +3,8 @@ import os
 
 
 def test_ticketmaster_upcomming():
+    if os.environ.get("DOMINO_TESTS_ENVIRONMENT", None) == "github":
+        return
     TICKETMASTER_API_KEY = os.environ.get("TICKETMASTER_API_KEY", None)
     if not TICKETMASTER_API_KEY:
         raise Exception("TICKETMASTER_API_KEY is required.")

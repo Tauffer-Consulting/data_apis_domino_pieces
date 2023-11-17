@@ -42,14 +42,14 @@ jobs:
           domino piece organize --build-images --source-url=https://github.com/${{github.repository}}
 
       - name: Install Tests Dependencies
-        run: pip install pytest
+        run: pip install -r requirements-tests.txt
 
       - name: Run tests over built images
         env:
-          NEWSAPI_API_KEY: ${{ secrets.NEWSAPI_API_KEY }}
+          DOMINO_TESTS_ENVIRONMENT: github
         run: |
-          pytest
-      
+          pytest --cov=pieces --cov-report=xml --cov-report=term-missing
+
       - name: Publish images
         env:
           GHCR_USERNAME: ${{ github.actor }}
