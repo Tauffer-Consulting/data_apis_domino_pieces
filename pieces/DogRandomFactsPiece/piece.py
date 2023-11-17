@@ -3,7 +3,7 @@ from .models import InputModel, OutputModel
 import requests
 
 
-class DogFactsPiece(BasePiece):
+class DogRandomFactsPiece(BasePiece):
     """
     This Piece uses the Dog API to get a random dog fact.
     - https://dog-api.kinduff.com/api/facts

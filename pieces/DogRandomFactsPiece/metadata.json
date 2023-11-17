@@ -1,5 +1,5 @@
 {
-    "name": "DogFactsPiece",
+    "name": "DogRandomFactsPiece",
     "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
     "dependency": {
         "requirements_file": "requirements.txt"
@@ -15,7 +15,7 @@
         }
     },
     "style": {
-        "node_label": "Dog Facts",
+        "node_label": "Dog Random Facts",
         "icon_class_name": "bxs:dog"
     }
 }
