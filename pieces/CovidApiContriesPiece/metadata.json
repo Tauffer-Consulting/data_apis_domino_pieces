@@ -1,0 +1,21 @@
+{
+    "name": "CovidApiContriesPiece",
+    "description": "This piece get covid 19 data for all countries",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "Covid-19 Countries",
+        "icon_class_name": "ion:earth-sharp"
+    }
+}
