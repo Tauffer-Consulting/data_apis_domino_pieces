@@ -25,7 +25,7 @@ class OutputModel(BaseModel):
     )
     image_base64_string: str = Field(
         default=None,
-        description='Output data as base64 encoded string.'
+        description='Image as base64 encoded string.'
     )
     image_file_path: str = Field(
         default=None,

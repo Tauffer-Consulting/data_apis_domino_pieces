@@ -4,6 +4,8 @@ import os
 
 
 def test_newsapi_articles():
+    if os.environ.get("DOMINO_TESTS_ENVIRONMENT", None) == "github":
+        return
     if os.environ.get("NEWSAPI_API_KEY", None):
         to_date = date.today().isoformat()
         from_date = (date.today() - timedelta(days=10)).isoformat()

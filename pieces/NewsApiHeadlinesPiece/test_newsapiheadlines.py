@@ -3,6 +3,8 @@ import os
 
 
 def test_newsapi_headlines():
+    if os.environ.get("DOMINO_TESTS_ENVIRONMENT", None) == "github":
+        return
     if os.environ.get("NEWSAPI_API_KEY", None):
         input_data = dict(
             query="usd",
