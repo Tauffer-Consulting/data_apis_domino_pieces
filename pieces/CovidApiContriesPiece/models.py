@@ -3,7 +3,7 @@ from typing import List, Optional
 
 
 class InputModel(BaseModel):
-    countries: Optional[List[str]]  # This could be an enum but too many countries to list
+    countries: Optional[List[str]] = Field(default=None)  # This could be an enum but too many countries to list
 
 
 class OutputInnerModel(BaseModel):
