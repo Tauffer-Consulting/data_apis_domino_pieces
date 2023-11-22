@@ -56,8 +56,8 @@ class CovidApiContriesPiece(BasePiece):
         json_path = str(Path(self.results_path) / 'covid_cases_per_million.json')
     
         fig.write_json(json_path)
-        self.display_results = {
+        self.display_result = {
             'file_type': 'plotly_json',
-            'file_path': fig.to_json()
+            'file_path': json_path
         }
         return OutputModel(data=data)
