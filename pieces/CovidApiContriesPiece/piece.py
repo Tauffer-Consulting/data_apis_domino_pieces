@@ -5,7 +5,7 @@ import plotly.express as px
 from pathlib import Path
 
 
-class CovidApiContriesPiece(object):
+class CovidApiContriesPiece(BasePiece):
     """
     Piece to fetch COVID-19 data from https://disease.sh/ and display it on a world map.
     """
@@ -23,7 +23,7 @@ class CovidApiContriesPiece(object):
 
     def piece_function(self, input_data: InputModel):
         countries = None
-        if input_data.countries:
+        if input_data.countries and "all" not in input_data.countries:
             countries = ','.join(input_data.countries).strip(',')
 
         covid_data = self.get_covid_data(countries=countries)

@@ -1,9 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 
 
 class InputModel(BaseModel):
-    countries: List[str]  # This could be an enum but too many countries to list
+    countries: Optional[List[str]]  # This could be an enum but too many countries to list
 
 
 class OutputInnerModel(BaseModel):
