@@ -736,16 +736,21 @@
         "input_schema": {
             "properties": {
                 "countries": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "title": "Countries",
-                    "type": "array"
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Countries"
                 }
             },
-            "required": [
-                "countries"
-            ],
             "title": "InputModel",
             "type": "object"
         },
