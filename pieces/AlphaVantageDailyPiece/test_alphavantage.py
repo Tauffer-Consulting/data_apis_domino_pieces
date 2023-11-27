@@ -1,11 +1,11 @@
-from domino.testing import piece_dry_run
+from domino.testing import piece_dry_run, skip_envs
 from pathlib import Path
 import os
 
 
+@skip_envs("github")
 def test_alphavantage():
-    if os.environ.get("DOMINO_TESTS_ENVIRONMENT", None) == "github":
-        return
+
     ALPHA_VANTAGE_API_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY", None)
     if not ALPHA_VANTAGE_API_KEY:
         raise Exception("ALPHA_VANTAGE_API_KEY environment variable is required.")

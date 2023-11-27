@@ -1,10 +1,9 @@
-from domino.testing import piece_dry_run
+from domino.testing import piece_dry_run, skip_envs
 import os
 
 
+@skip_envs("github")
 def test_newsapi_headlines():
-    if os.environ.get("DOMINO_TESTS_ENVIRONMENT", None) == "github":
-        return
     if os.environ.get("NEWSAPI_API_KEY", None):
         input_data = dict(
             query="usd",
