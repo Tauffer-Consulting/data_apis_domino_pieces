@@ -1,0 +1,21 @@
+{
+    "name": "TicketmasterUpcommingEventsPiece",
+    "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "Ticketmaster Upcomming Events",
+        "icon_class_name": "uil:ticket"
+    }
+}

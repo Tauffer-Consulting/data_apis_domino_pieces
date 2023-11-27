@@ -1,2 +1,5 @@
 newsapi-python==0.2.7
 beautifulsoup4==4.12.2
+plotly==5.18.0
+plotly-express==0.4.1
+pandas==2.1.3

@@ -1,0 +1,21 @@
+{
+    "name": "DogRandomPicturePiece",
+    "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
+    "dependency": {
+        "requirements_file": "requirements.txt"
+    },
+    "container_resources": {
+        "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+        },
+        "limits": {
+            "cpu": "500m",
+            "memory": "512Mi"
+        }
+    },
+    "style": {
+        "node_label": "Dog Random Picture",
+        "icon_class_name": "bxs:dog"
+    }
+}
