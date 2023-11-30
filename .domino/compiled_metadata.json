@@ -21,12 +21,12 @@
         "description": "This Piece uses the News API to retrieve the top headlines from a given source or country.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/top-headlines",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -287,12 +287,12 @@
         "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -337,12 +337,12 @@
         "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -418,12 +418,12 @@
         "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -513,12 +513,12 @@
         "description": "This Piece uses the News API to retrieve full articles.\nReferences:\n- https://newsapi.org/\n- https://newsapi.org/docs/endpoints/everything",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -725,12 +725,12 @@
         "description": "This piece get covid 19 data for all countries",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -817,12 +817,12 @@
         "description": "This Piece uses the NASA EPIC API to get satellite images of the Earth.\nReferences: \n- https://epic.gsfc.nasa.gov/about/api \n- https://api.nasa.gov/",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
@@ -914,12 +914,12 @@
         "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
         "container_resources": {
             "requests": {
-                "cpu": "100m",
-                "memory": "128Mi"
+                "cpu": 100,
+                "memory": 128
             },
             "limits": {
-                "cpu": "500m",
-                "memory": "512Mi"
+                "cpu": 500,
+                "memory": 512
             }
         },
         "input_schema": {
