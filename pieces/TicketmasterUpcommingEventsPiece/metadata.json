@@ -16,6 +16,9 @@
     },
     "style": {
         "node_label": "Ticketmaster Upcomming Events",
-        "icon_class_name": "uil:ticket"
+        "icon_class_name": "uil:ticket",
+        "node_style": {
+            "backgroundColor": "#F99696"
+        }
     }
 }

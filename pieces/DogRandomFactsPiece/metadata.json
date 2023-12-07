@@ -16,6 +16,9 @@
     },
     "style": {
         "node_label": "Dog Random Facts",
-        "icon_class_name": "bxs:dog"
+        "icon_class_name": "bxs:dog",
+"node_style": {
+            "backgroundColor": "#F99696"
+        }
     }
 }

@@ -16,6 +16,9 @@
     },
     "style": {
         "node_label": "AlphaVantage Daily",
+        "node_style": {
+            "backgroundColor": "#F99696"
+        },
         "icon_class_name": "ant-design:stock-outlined"
     }
 }

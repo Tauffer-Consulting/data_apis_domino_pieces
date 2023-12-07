@@ -16,6 +16,9 @@
     },
     "style": {
         "node_label": "NASA Earth Image",
-        "icon_class_name": "ion:earth-sharp"
+        "icon_class_name": "ion:earth-sharp",
+        "node_style": {
+            "backgroundColor": "#F99696"
+        }
     }
 }

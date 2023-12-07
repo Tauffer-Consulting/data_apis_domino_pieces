@@ -16,6 +16,9 @@
     },
     "style": {
         "node_label": "NewsAPI Headlines",
-        "icon_class_name": "fluent:news-16-regular"
+        "icon_class_name": "fluent:news-16-regular",
+        "node_style": {
+            "backgroundColor": "#F99696"
+        }
     }
 }
