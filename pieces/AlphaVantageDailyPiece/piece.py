@@ -88,7 +88,7 @@ class AlphaVantageDailyPiece(BasePiece):
         with open(f"{self.results_path}/results_plotly.json", "w") as f:
             f.write(fig_json)
         self.display_result = {
-            "file_type": "plotly-json",
+            "file_type": "plotly_json",
             "file_path": f"{self.results_path}/results_plotly.json",
         }
 
