@@ -1,4 +1,99 @@
 {
+    "AlphaVantageDailyPiece": {
+        "name": "AlphaVantageDailyPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "AlphaVantage Daily",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#F99696"
+            },
+            "useIcon": true,
+            "icon_class_name": "ant-design:stock-outlined",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "$defs": {
+                "OutputSizeTypes": {
+                    "enum": [
+                        "compact",
+                        "full"
+                    ],
+                    "title": "OutputSizeTypes",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "symbol": {
+                    "default": "AAPL",
+                    "description": "The stock symbol.",
+                    "title": "Symbol",
+                    "type": "string"
+                },
+                "output_size": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/OutputSizeTypes"
+                        }
+                    ],
+                    "default": "compact",
+                    "description": "The size of the output data. Options are `compact` (100 data points) and full (full-length data). Default is `compact`."
+                },
+                "max_data_points": {
+                    "default": -1,
+                    "description": "The maximum number of data points to return. Default is -1, which returns all data points.",
+                    "title": "Max Data Points",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "data_file_path": {
+                    "default": "",
+                    "description": "Path to the data file.",
+                    "title": "Data File Path",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": {
+            "properties": {
+                "ALPHA_VANTAGE_API_KEY": {
+                    "description": "API key for Alpha Vantage data API.",
+                    "title": "Alpha Vantage Api Key",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ALPHA_VANTAGE_API_KEY"
+            ],
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/AlphaVantageDailyPiece"
+    },
     "NewsApiHeadlinesPiece": {
         "name": "NewsApiHeadlinesPiece",
         "dependency": {
@@ -10,7 +105,7 @@
             "node_label": "NewsAPI Headlines",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
             "icon_class_name": "fluent:news-16-regular",
@@ -265,76 +360,26 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NewsApiHeadlinesPiece"
     },
-    "DogRandomFactsPiece": {
-        "name": "DogRandomFactsPiece",
+    "TicketmasterUpcommingEventsPiece": {
+        "name": "TicketmasterUpcommingEventsPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "Dog Random Facts",
+            "node_label": "Ticketmaster Upcomming Events",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "bxs:dog",
+            "icon_class_name": "uil:ticket",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "properties": {},
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "dog_fact": {
-                    "default": "",
-                    "description": "A random dog fact.",
-                    "title": "Dog Fact",
-                    "type": "string"
-                }
-            },
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomFactsPiece"
-    },
-    "DogRandomPicturePiece": {
-        "name": "DogRandomPicturePiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Dog Random Picture",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "bxs:dog",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
+        "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -347,75 +392,151 @@
         },
         "input_schema": {
             "properties": {
-                "return_string": {
-                    "default": true,
-                    "description": "Return the image as a base64 encoded string.",
-                    "title": "Return String",
-                    "type": "boolean"
+                "max_number_of_events": {
+                    "default": 10,
+                    "description": "Maximum number of events to return.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "title": "Max Number Of Events",
+                    "type": "integer"
                 },
-                "return_file": {
-                    "default": false,
-                    "description": "Return the image file.",
-                    "title": "Return File",
-                    "type": "boolean"
+                "keyword": {
+                    "default": null,
+                    "description": "Keyword to search for.",
+                    "title": "Keyword",
+                    "type": "string"
                 },
-                "return_url": {
-                    "default": false,
-                    "description": "Return the image url.",
-                    "title": "Return Url",
-                    "type": "boolean"
+                "end_date": {
+                    "default": null,
+                    "description": "End date for the search. Must be a future date.",
+                    "format": "date",
+                    "title": "End Date",
+                    "type": "string"
+                },
+                "city": {
+                    "default": null,
+                    "description": "City to search for.",
+                    "title": "City",
+                    "type": "string"
+                },
+                "country_code": {
+                    "default": null,
+                    "description": "Country code to search for. Must be a valid ISO 3166-1 alpha-2 code.",
+                    "maxLength": 2,
+                    "minLength": 2,
+                    "title": "Country Code",
+                    "type": "string"
                 }
             },
             "title": "InputModel",
             "type": "object"
         },
         "output_schema": {
+            "$defs": {
+                "EventObjectType": {
+                    "properties": {
+                        "name": {
+                            "description": "Name of the event type.",
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "event_date": {
+                            "description": "Date of the event.",
+                            "format": "date",
+                            "title": "Event Date",
+                            "type": "string"
+                        },
+                        "event_location": {
+                            "description": "Location of the event.",
+                            "title": "Event Location",
+                            "type": "string"
+                        },
+                        "classification": {
+                            "default": null,
+                            "description": "Classification of the event.",
+                            "title": "Classification",
+                            "type": "string"
+                        },
+                        "url": {
+                            "default": null,
+                            "description": "URL of the event type.",
+                            "title": "Url",
+                            "type": "string"
+                        },
+                        "image_url": {
+                            "default": null,
+                            "description": "Image URL of the event type.",
+                            "title": "Image Url",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "event_date",
+                        "event_location"
+                    ],
+                    "title": "EventObjectType",
+                    "type": "object"
+                }
+            },
             "properties": {
-                "image_base64_string": {
-                    "default": null,
-                    "description": "Image as base64 encoded string.",
-                    "title": "Image Base64 String",
-                    "type": "string"
+                "events": {
+                    "description": "List of events.",
+                    "items": {
+                        "$ref": "#/$defs/EventObjectType"
+                    },
+                    "title": "Events",
+                    "type": "array"
                 },
-                "image_file_path": {
-                    "default": null,
-                    "description": "Path to the image file.",
-                    "title": "Image File Path",
-                    "type": "string"
-                },
-                "image_url": {
-                    "default": null,
-                    "description": "URL to the image.",
-                    "title": "Image Url",
+                "results_formatted": {
+                    "description": "Text with formatted results.",
+                    "title": "Results Formatted",
                     "type": "string"
                 }
             },
+            "required": [
+                "events",
+                "results_formatted"
+            ],
             "title": "OutputModel",
             "type": "object"
         },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomPicturePiece"
+        "secrets_schema": {
+            "properties": {
+                "TICKETMASTER_API_KEY": {
+                    "description": "API key for the Ticketmaster API.",
+                    "title": "Ticketmaster Api Key",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "TICKETMASTER_API_KEY"
+            ],
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/TicketmasterUpcommingEventsPiece"
     },
-    "AlphaVantageDailyPiece": {
-        "name": "AlphaVantageDailyPiece",
+    "NasaEarthImagePiece": {
+        "name": "NasaEarthImagePiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "AlphaVantage Daily",
+            "node_label": "NASA Earth Image",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "ant-design:stock-outlined",
+            "icon_class_name": "ion:earth-sharp",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
+        "description": "This Piece uses the NASA EPIC API to get satellite images of the Earth.\nReferences: \n- https://epic.gsfc.nasa.gov/about/api \n- https://api.nasa.gov/",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -428,36 +549,28 @@
         },
         "input_schema": {
             "$defs": {
-                "OutputSizeTypes": {
+                "LocationTypes": {
                     "enum": [
-                        "compact",
-                        "full"
+                        "random",
+                        "America",
+                        "Atlantic Ocean",
+                        "Africa",
+                        "Asia",
+                        "Pacific Ocean"
                     ],
-                    "title": "OutputSizeTypes",
+                    "title": "LocationTypes",
                     "type": "string"
                 }
             },
             "properties": {
-                "symbol": {
-                    "default": "AAPL",
-                    "description": "The stock symbol.",
-                    "title": "Symbol",
-                    "type": "string"
-                },
-                "output_size": {
+                "location": {
                     "allOf": [
                         {
-                            "$ref": "#/$defs/OutputSizeTypes"
+                            "$ref": "#/$defs/LocationTypes"
                         }
                     ],
-                    "default": "compact",
-                    "description": "The size of the output data. Options are `compact` (100 data points) and full (full-length data). Default is `compact`."
-                },
-                "max_data_points": {
-                    "default": -1,
-                    "description": "The maximum number of data points to return. Default is -1, which returns all data points.",
-                    "title": "Max Data Points",
-                    "type": "integer"
+                    "default": "random",
+                    "description": "Retrieve image centered approximately on this location."
                 }
             },
             "title": "InputModel",
@@ -465,10 +578,22 @@
         },
         "output_schema": {
             "properties": {
-                "data_file_path": {
-                    "default": "",
-                    "description": "Path to the data file.",
-                    "title": "Data File Path",
+                "image_url": {
+                    "default": null,
+                    "description": "URL of the image.",
+                    "title": "Image Url",
+                    "type": "string"
+                },
+                "image_base64_string": {
+                    "default": null,
+                    "description": "Image as base64 encoded string.",
+                    "title": "Image Base64 String",
+                    "type": "string"
+                },
+                "image_file_path": {
+                    "default": null,
+                    "description": "Path to the image file.",
+                    "title": "Image File Path",
                     "type": "string"
                 }
             },
@@ -477,19 +602,17 @@
         },
         "secrets_schema": {
             "properties": {
-                "ALPHA_VANTAGE_API_KEY": {
-                    "description": "API key for Alpha Vantage data API.",
-                    "title": "Alpha Vantage Api Key",
+                "NASA_API_KEY": {
+                    "default": "DEMO_KEY",
+                    "description": "API key for NASA Earth Image API.",
+                    "title": "Nasa Api Key",
                     "type": "string"
                 }
             },
-            "required": [
-                "ALPHA_VANTAGE_API_KEY"
-            ],
             "title": "SecretsModel",
             "type": "object"
         },
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/AlphaVantageDailyPiece"
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
     },
     "NewsApiArticlesPiece": {
         "name": "NewsApiArticlesPiece",
@@ -502,7 +625,7 @@
             "node_label": "NewsAPI Articles",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
             "icon_class_name": "fluent:news-16-regular",
@@ -714,7 +837,7 @@
             "node_label": "Covid-19 Countries",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
             "icon_class_name": "ion:earth-sharp",
@@ -795,26 +918,26 @@
         "secrets_schema": null,
         "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/CovidApiContriesPiece"
     },
-    "NasaEarthImagePiece": {
-        "name": "NasaEarthImagePiece",
+    "DogRandomPicturePiece": {
+        "name": "DogRandomPicturePiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "NASA Earth Image",
+            "node_label": "Dog Random Picture",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "ion:earth-sharp",
+            "icon_class_name": "bxs:dog",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the NASA EPIC API to get satellite images of the Earth.\nReferences: \n- https://epic.gsfc.nasa.gov/about/api \n- https://api.nasa.gov/",
+        "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -826,29 +949,24 @@
             }
         },
         "input_schema": {
-            "$defs": {
-                "LocationTypes": {
-                    "enum": [
-                        "random",
-                        "America",
-                        "Atlantic Ocean",
-                        "Africa",
-                        "Asia",
-                        "Pacific Ocean"
-                    ],
-                    "title": "LocationTypes",
-                    "type": "string"
-                }
-            },
             "properties": {
-                "location": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/LocationTypes"
-                        }
-                    ],
-                    "default": "random",
-                    "description": "Retrieve image centered approximately on this location."
+                "return_string": {
+                    "default": true,
+                    "description": "Return the image as a base64 encoded string.",
+                    "title": "Return String",
+                    "type": "boolean"
+                },
+                "return_file": {
+                    "default": false,
+                    "description": "Return the image file.",
+                    "title": "Return File",
+                    "type": "boolean"
+                },
+                "return_url": {
+                    "default": false,
+                    "description": "Return the image url.",
+                    "title": "Return Url",
+                    "type": "boolean"
                 }
             },
             "title": "InputModel",
@@ -856,12 +974,6 @@
         },
         "output_schema": {
             "properties": {
-                "image_url": {
-                    "default": null,
-                    "description": "URL of the image.",
-                    "title": "Image Url",
-                    "type": "string"
-                },
                 "image_base64_string": {
                     "default": null,
                     "description": "Image as base64 encoded string.",
@@ -873,45 +985,40 @@
                     "description": "Path to the image file.",
                     "title": "Image File Path",
                     "type": "string"
+                },
+                "image_url": {
+                    "default": null,
+                    "description": "URL to the image.",
+                    "title": "Image Url",
+                    "type": "string"
                 }
             },
             "title": "OutputModel",
             "type": "object"
         },
-        "secrets_schema": {
-            "properties": {
-                "NASA_API_KEY": {
-                    "default": "DEMO_KEY",
-                    "description": "API key for NASA Earth Image API.",
-                    "title": "Nasa Api Key",
-                    "type": "string"
-                }
-            },
-            "title": "SecretsModel",
-            "type": "object"
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomPicturePiece"
     },
-    "TicketmasterUpcommingEventsPiece": {
-        "name": "TicketmasterUpcommingEventsPiece",
+    "DogRandomFactsPiece": {
+        "name": "DogRandomFactsPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "Ticketmaster Upcomming Events",
+            "node_label": "Dog Random Facts",
             "node_type": "default",
             "node_style": {
-                "backgroundColor": "#ebebeb"
+                "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "uil:ticket",
+            "icon_class_name": "bxs:dog",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
+        "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -923,130 +1030,23 @@
             }
         },
         "input_schema": {
-            "properties": {
-                "max_number_of_events": {
-                    "default": 10,
-                    "description": "Maximum number of events to return.",
-                    "maximum": 100,
-                    "minimum": 1,
-                    "title": "Max Number Of Events",
-                    "type": "integer"
-                },
-                "keyword": {
-                    "default": null,
-                    "description": "Keyword to search for.",
-                    "title": "Keyword",
-                    "type": "string"
-                },
-                "end_date": {
-                    "default": null,
-                    "description": "End date for the search. Must be a future date.",
-                    "format": "date",
-                    "title": "End Date",
-                    "type": "string"
-                },
-                "city": {
-                    "default": null,
-                    "description": "City to search for.",
-                    "title": "City",
-                    "type": "string"
-                },
-                "country_code": {
-                    "default": null,
-                    "description": "Country code to search for. Must be a valid ISO 3166-1 alpha-2 code.",
-                    "maxLength": 2,
-                    "minLength": 2,
-                    "title": "Country Code",
-                    "type": "string"
-                }
-            },
+            "properties": {},
             "title": "InputModel",
             "type": "object"
         },
         "output_schema": {
-            "$defs": {
-                "EventObjectType": {
-                    "properties": {
-                        "name": {
-                            "description": "Name of the event type.",
-                            "title": "Name",
-                            "type": "string"
-                        },
-                        "event_date": {
-                            "description": "Date of the event.",
-                            "format": "date",
-                            "title": "Event Date",
-                            "type": "string"
-                        },
-                        "event_location": {
-                            "description": "Location of the event.",
-                            "title": "Event Location",
-                            "type": "string"
-                        },
-                        "classification": {
-                            "default": null,
-                            "description": "Classification of the event.",
-                            "title": "Classification",
-                            "type": "string"
-                        },
-                        "url": {
-                            "default": null,
-                            "description": "URL of the event type.",
-                            "title": "Url",
-                            "type": "string"
-                        },
-                        "image_url": {
-                            "default": null,
-                            "description": "Image URL of the event type.",
-                            "title": "Image Url",
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "name",
-                        "event_date",
-                        "event_location"
-                    ],
-                    "title": "EventObjectType",
-                    "type": "object"
-                }
-            },
             "properties": {
-                "events": {
-                    "description": "List of events.",
-                    "items": {
-                        "$ref": "#/$defs/EventObjectType"
-                    },
-                    "title": "Events",
-                    "type": "array"
-                },
-                "results_formatted": {
-                    "description": "Text with formatted results.",
-                    "title": "Results Formatted",
+                "dog_fact": {
+                    "default": "",
+                    "description": "A random dog fact.",
+                    "title": "Dog Fact",
                     "type": "string"
                 }
             },
-            "required": [
-                "events",
-                "results_formatted"
-            ],
             "title": "OutputModel",
             "type": "object"
         },
-        "secrets_schema": {
-            "properties": {
-                "TICKETMASTER_API_KEY": {
-                    "description": "API key for the Ticketmaster API.",
-                    "title": "Ticketmaster Api Key",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "TICKETMASTER_API_KEY"
-            ],
-            "title": "SecretsModel",
-            "type": "object"
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/TicketmasterUpcommingEventsPiece"
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomFactsPiece"
     }
 }

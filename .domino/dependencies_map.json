@@ -5,20 +5,20 @@
             "requirements_file": "requirements.txt"
         },
         "pieces": [
-            "NewsApiHeadlinesPiece",
-            "DogRandomFactsPiece",
-            "DogRandomPicturePiece",
             "AlphaVantageDailyPiece",
+            "NewsApiHeadlinesPiece",
+            "TicketmasterUpcommingEventsPiece",
+            "NasaEarthImagePiece",
             "NewsApiArticlesPiece",
             "CovidApiContriesPiece",
-            "NasaEarthImagePiece",
-            "TicketmasterUpcommingEventsPiece"
+            "DogRandomPicturePiece",
+            "DogRandomFactsPiece"
         ],
         "secrets": [
             "NASA_API_KEY",
-            "ALPHA_VANTAGE_API_KEY",
             "NEWSAPI_API_KEY",
-            "TICKETMASTER_API_KEY"
+            "TICKETMASTER_API_KEY",
+            "ALPHA_VANTAGE_API_KEY"
         ],
         "source_image": "ghcr.io/tauffer-consulting/data_apis_domino_pieces:0.2.1-group0"
     }
