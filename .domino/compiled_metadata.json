@@ -1,24 +1,24 @@
 {
-    "AlphaVantageDailyPiece": {
-        "name": "AlphaVantageDailyPiece",
+    "TicketmasterUpcommingEventsPiece": {
+        "name": "TicketmasterUpcommingEventsPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "AlphaVantage Daily",
+            "node_label": "Ticketmaster Upcomming Events",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "ant-design:stock-outlined",
+            "icon_class_name": "uil:ticket",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
+        "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -30,292 +30,131 @@
             }
         },
         "input_schema": {
-            "$defs": {
-                "OutputSizeTypes": {
-                    "enum": [
-                        "compact",
-                        "full"
-                    ],
-                    "title": "OutputSizeTypes",
-                    "type": "string"
-                }
-            },
             "properties": {
-                "symbol": {
-                    "default": "AAPL",
-                    "description": "The stock symbol.",
-                    "title": "Symbol",
+                "max_number_of_events": {
+                    "default": 10,
+                    "description": "Maximum number of events to return.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "title": "Max Number Of Events",
+                    "type": "integer"
+                },
+                "keyword": {
+                    "default": null,
+                    "description": "Keyword to search for.",
+                    "title": "Keyword",
                     "type": "string"
                 },
-                "output_size": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/OutputSizeTypes"
-                        }
-                    ],
-                    "default": "compact",
-                    "description": "The size of the output data. Options are `compact` (100 data points) and full (full-length data). Default is `compact`."
+                "end_date": {
+                    "default": null,
+                    "description": "End date for the search. Must be a future date.",
+                    "format": "date",
+                    "title": "End Date",
+                    "type": "string"
                 },
-                "max_data_points": {
-                    "default": -1,
-                    "description": "The maximum number of data points to return. Default is -1, which returns all data points.",
-                    "title": "Max Data Points",
-                    "type": "integer"
+                "city": {
+                    "default": null,
+                    "description": "City to search for.",
+                    "title": "City",
+                    "type": "string"
+                },
+                "country_code": {
+                    "default": null,
+                    "description": "Country code to search for. Must be a valid ISO 3166-1 alpha-2 code.",
+                    "maxLength": 2,
+                    "minLength": 2,
+                    "title": "Country Code",
+                    "type": "string"
                 }
             },
             "title": "InputModel",
             "type": "object"
         },
         "output_schema": {
+            "$defs": {
+                "EventObjectType": {
+                    "properties": {
+                        "name": {
+                            "description": "Name of the event type.",
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "event_date": {
+                            "description": "Date of the event.",
+                            "format": "date",
+                            "title": "Event Date",
+                            "type": "string"
+                        },
+                        "event_location": {
+                            "description": "Location of the event.",
+                            "title": "Event Location",
+                            "type": "string"
+                        },
+                        "classification": {
+                            "default": null,
+                            "description": "Classification of the event.",
+                            "title": "Classification",
+                            "type": "string"
+                        },
+                        "url": {
+                            "default": null,
+                            "description": "URL of the event type.",
+                            "title": "Url",
+                            "type": "string"
+                        },
+                        "image_url": {
+                            "default": null,
+                            "description": "Image URL of the event type.",
+                            "title": "Image Url",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "event_date",
+                        "event_location"
+                    ],
+                    "title": "EventObjectType",
+                    "type": "object"
+                }
+            },
             "properties": {
-                "data_file_path": {
-                    "default": "",
-                    "description": "Path to the data file.",
-                    "title": "Data File Path",
+                "events": {
+                    "description": "List of events.",
+                    "items": {
+                        "$ref": "#/$defs/EventObjectType"
+                    },
+                    "title": "Events",
+                    "type": "array"
+                },
+                "results_formatted": {
+                    "description": "Text with formatted results.",
+                    "title": "Results Formatted",
                     "type": "string"
                 }
             },
+            "required": [
+                "events",
+                "results_formatted"
+            ],
             "title": "OutputModel",
             "type": "object"
         },
         "secrets_schema": {
             "properties": {
-                "ALPHA_VANTAGE_API_KEY": {
-                    "description": "API key for Alpha Vantage data API.",
-                    "title": "Alpha Vantage Api Key",
+                "TICKETMASTER_API_KEY": {
+                    "description": "API key for the Ticketmaster API.",
+                    "title": "Ticketmaster Api Key",
                     "type": "string"
                 }
             },
             "required": [
-                "ALPHA_VANTAGE_API_KEY"
+                "TICKETMASTER_API_KEY"
             ],
             "title": "SecretsModel",
             "type": "object"
         },
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/AlphaVantageDailyPiece"
-    },
-    "CovidApiContriesPiece": {
-        "name": "CovidApiContriesPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Covid-19 Countries",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#F99696"
-            },
-            "useIcon": true,
-            "icon_class_name": "ion:earth-sharp",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This piece get covid 19 data for all countries",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "properties": {
-                "countries": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "Countries"
-                }
-            },
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "$defs": {
-                "OutputInnerModel": {
-                    "properties": {
-                        "Country": {
-                            "items": {
-                                "type": "string"
-                            },
-                            "title": "Country",
-                            "type": "array"
-                        },
-                        "Cases per One Million": {
-                            "items": {
-                                "type": "number"
-                            },
-                            "title": "Cases Per One Million",
-                            "type": "array"
-                        }
-                    },
-                    "required": [
-                        "Country",
-                        "Cases per One Million"
-                    ],
-                    "title": "OutputInnerModel",
-                    "type": "object"
-                }
-            },
-            "properties": {
-                "data": {
-                    "$ref": "#/$defs/OutputInnerModel"
-                }
-            },
-            "required": [
-                "data"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/CovidApiContriesPiece"
-    },
-    "DogRandomFactsPiece": {
-        "name": "DogRandomFactsPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Dog Random Facts",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#F99696"
-            },
-            "useIcon": true,
-            "icon_class_name": "bxs:dog",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "properties": {},
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "dog_fact": {
-                    "default": "",
-                    "description": "A random dog fact.",
-                    "title": "Dog Fact",
-                    "type": "string"
-                }
-            },
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomFactsPiece"
-    },
-    "DogRandomPicturePiece": {
-        "name": "DogRandomPicturePiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements.txt"
-        },
-        "tags": [],
-        "style": {
-            "node_label": "Dog Random Picture",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#F99696"
-            },
-            "useIcon": true,
-            "icon_class_name": "bxs:dog",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
-        "container_resources": {
-            "requests": {
-                "cpu": 100,
-                "memory": 128
-            },
-            "limits": {
-                "cpu": 500,
-                "memory": 512
-            }
-        },
-        "input_schema": {
-            "properties": {
-                "return_string": {
-                    "default": true,
-                    "description": "Return the image as a base64 encoded string.",
-                    "title": "Return String",
-                    "type": "boolean"
-                },
-                "return_file": {
-                    "default": false,
-                    "description": "Return the image file.",
-                    "title": "Return File",
-                    "type": "boolean"
-                },
-                "return_url": {
-                    "default": false,
-                    "description": "Return the image url.",
-                    "title": "Return Url",
-                    "type": "boolean"
-                }
-            },
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "image_base64_string": {
-                    "default": null,
-                    "description": "Image as base64 encoded string.",
-                    "title": "Image Base64 String",
-                    "type": "string"
-                },
-                "image_file_path": {
-                    "default": null,
-                    "description": "Path to the image file.",
-                    "title": "Image File Path",
-                    "type": "string"
-                },
-                "image_url": {
-                    "default": null,
-                    "description": "URL to the image.",
-                    "title": "Image Url",
-                    "type": "string"
-                }
-            },
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomPicturePiece"
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/TicketmasterUpcommingEventsPiece"
     },
     "NewsApiArticlesPiece": {
         "name": "NewsApiArticlesPiece",
@@ -529,26 +368,76 @@
         },
         "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NewsApiArticlesPiece"
     },
-    "TicketmasterUpcommingEventsPiece": {
-        "name": "TicketmasterUpcommingEventsPiece",
+    "DogRandomFactsPiece": {
+        "name": "DogRandomFactsPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements.txt"
         },
         "tags": [],
         "style": {
-            "node_label": "Ticketmaster Upcomming Events",
+            "node_label": "Dog Random Facts",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#F99696"
             },
             "useIcon": true,
-            "icon_class_name": "uil:ticket",
+            "icon_class_name": "bxs:dog",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "This Piece uses the Ticketmaster API to get upcomming events based on a search options.\n -https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/",
+        "description": "This Piece uses the Dog API to get a random dog fact.\n- https://dog-api.kinduff.com/api/facts",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "properties": {},
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "dog_fact": {
+                    "default": "",
+                    "description": "A random dog fact.",
+                    "title": "Dog Fact",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomFactsPiece"
+    },
+    "CovidApiContriesPiece": {
+        "name": "CovidApiContriesPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Covid-19 Countries",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#F99696"
+            },
+            "useIcon": true,
+            "icon_class_name": "ion:earth-sharp",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This piece get covid 19 data for all countries",
         "container_resources": {
             "requests": {
                 "cpu": 100,
@@ -561,40 +450,20 @@
         },
         "input_schema": {
             "properties": {
-                "max_number_of_events": {
-                    "default": 10,
-                    "description": "Maximum number of events to return.",
-                    "maximum": 100,
-                    "minimum": 1,
-                    "title": "Max Number Of Events",
-                    "type": "integer"
-                },
-                "keyword": {
+                "countries": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
                     "default": null,
-                    "description": "Keyword to search for.",
-                    "title": "Keyword",
-                    "type": "string"
-                },
-                "end_date": {
-                    "default": null,
-                    "description": "End date for the search. Must be a future date.",
-                    "format": "date",
-                    "title": "End Date",
-                    "type": "string"
-                },
-                "city": {
-                    "default": null,
-                    "description": "City to search for.",
-                    "title": "City",
-                    "type": "string"
-                },
-                "country_code": {
-                    "default": null,
-                    "description": "Country code to search for. Must be a valid ISO 3166-1 alpha-2 code.",
-                    "maxLength": 2,
-                    "minLength": 2,
-                    "title": "Country Code",
-                    "type": "string"
+                    "title": "Countries"
                 }
             },
             "title": "InputModel",
@@ -602,89 +471,44 @@
         },
         "output_schema": {
             "$defs": {
-                "EventObjectType": {
+                "OutputInnerModel": {
                     "properties": {
-                        "name": {
-                            "description": "Name of the event type.",
-                            "title": "Name",
-                            "type": "string"
+                        "Country": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Country",
+                            "type": "array"
                         },
-                        "event_date": {
-                            "description": "Date of the event.",
-                            "format": "date",
-                            "title": "Event Date",
-                            "type": "string"
-                        },
-                        "event_location": {
-                            "description": "Location of the event.",
-                            "title": "Event Location",
-                            "type": "string"
-                        },
-                        "classification": {
-                            "default": null,
-                            "description": "Classification of the event.",
-                            "title": "Classification",
-                            "type": "string"
-                        },
-                        "url": {
-                            "default": null,
-                            "description": "URL of the event type.",
-                            "title": "Url",
-                            "type": "string"
-                        },
-                        "image_url": {
-                            "default": null,
-                            "description": "Image URL of the event type.",
-                            "title": "Image Url",
-                            "type": "string"
+                        "Cases per One Million": {
+                            "items": {
+                                "type": "number"
+                            },
+                            "title": "Cases Per One Million",
+                            "type": "array"
                         }
                     },
                     "required": [
-                        "name",
-                        "event_date",
-                        "event_location"
+                        "Country",
+                        "Cases per One Million"
                     ],
-                    "title": "EventObjectType",
+                    "title": "OutputInnerModel",
                     "type": "object"
                 }
             },
             "properties": {
-                "events": {
-                    "description": "List of events.",
-                    "items": {
-                        "$ref": "#/$defs/EventObjectType"
-                    },
-                    "title": "Events",
-                    "type": "array"
-                },
-                "results_formatted": {
-                    "description": "Text with formatted results.",
-                    "title": "Results Formatted",
-                    "type": "string"
+                "data": {
+                    "$ref": "#/$defs/OutputInnerModel"
                 }
             },
             "required": [
-                "events",
-                "results_formatted"
+                "data"
             ],
             "title": "OutputModel",
             "type": "object"
         },
-        "secrets_schema": {
-            "properties": {
-                "TICKETMASTER_API_KEY": {
-                    "description": "API key for the Ticketmaster API.",
-                    "title": "Ticketmaster Api Key",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "TICKETMASTER_API_KEY"
-            ],
-            "title": "SecretsModel",
-            "type": "object"
-        },
-        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/TicketmasterUpcommingEventsPiece"
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/CovidApiContriesPiece"
     },
     "NewsApiHeadlinesPiece": {
         "name": "NewsApiHeadlinesPiece",
@@ -1048,5 +872,181 @@
             "type": "object"
         },
         "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/NasaEarthImagePiece"
+    },
+    "DogRandomPicturePiece": {
+        "name": "DogRandomPicturePiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "Dog Random Picture",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#F99696"
+            },
+            "useIcon": true,
+            "icon_class_name": "bxs:dog",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece uses the Dog API to get a random dog picture.\n- https://dog.ceo/dog-api/",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "properties": {
+                "return_string": {
+                    "default": true,
+                    "description": "Return the image as a base64 encoded string.",
+                    "title": "Return String",
+                    "type": "boolean"
+                },
+                "return_file": {
+                    "default": false,
+                    "description": "Return the image file.",
+                    "title": "Return File",
+                    "type": "boolean"
+                },
+                "return_url": {
+                    "default": false,
+                    "description": "Return the image url.",
+                    "title": "Return Url",
+                    "type": "boolean"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "image_base64_string": {
+                    "default": null,
+                    "description": "Image as base64 encoded string.",
+                    "title": "Image Base64 String",
+                    "type": "string"
+                },
+                "image_file_path": {
+                    "default": null,
+                    "description": "Path to the image file.",
+                    "title": "Image File Path",
+                    "type": "string"
+                },
+                "image_url": {
+                    "default": null,
+                    "description": "URL to the image.",
+                    "title": "Image Url",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/DogRandomPicturePiece"
+    },
+    "AlphaVantageDailyPiece": {
+        "name": "AlphaVantageDailyPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements.txt"
+        },
+        "tags": [],
+        "style": {
+            "node_label": "AlphaVantage Daily",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#F99696"
+            },
+            "useIcon": true,
+            "icon_class_name": "ant-design:stock-outlined",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "This Piece uses the AlphaVantage API to get daily stock data.\n- https://www.alphavantage.co/",
+        "container_resources": {
+            "requests": {
+                "cpu": 100,
+                "memory": 128
+            },
+            "limits": {
+                "cpu": 500,
+                "memory": 512
+            }
+        },
+        "input_schema": {
+            "$defs": {
+                "OutputSizeTypes": {
+                    "enum": [
+                        "compact",
+                        "full"
+                    ],
+                    "title": "OutputSizeTypes",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "symbol": {
+                    "default": "AAPL",
+                    "description": "The stock symbol.",
+                    "title": "Symbol",
+                    "type": "string"
+                },
+                "output_size": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/OutputSizeTypes"
+                        }
+                    ],
+                    "default": "compact",
+                    "description": "The size of the output data. Options are `compact` (100 data points) and full (full-length data). Default is `compact`."
+                },
+                "max_data_points": {
+                    "default": -1,
+                    "description": "The maximum number of data points to return. Default is -1, which returns all data points.",
+                    "title": "Max Data Points",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "data_file_path": {
+                    "default": "",
+                    "description": "Path to the data file.",
+                    "title": "Data File Path",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": {
+            "properties": {
+                "ALPHA_VANTAGE_API_KEY": {
+                    "description": "API key for Alpha Vantage data API.",
+                    "title": "Alpha Vantage Api Key",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ALPHA_VANTAGE_API_KEY"
+            ],
+            "title": "SecretsModel",
+            "type": "object"
+        },
+        "source_url": "https://github.com/Tauffer-Consulting/data_apis_domino_pieces/tree/main/pieces/AlphaVantageDailyPiece"
     }
 }
